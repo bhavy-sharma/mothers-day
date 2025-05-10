@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119128905-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-119128905-1');
+	</script>
+
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+	<meta name="description" content="Write your mom a special message for Mother's Day!"/>
+	<meta property="og:description" content="Write your mom a special message for Mother's Day!"/>
+	<meta property="og:title" content="Mother's Day Message"/>
+	<meta property="twitter:card" content="summary"/>
+	<meta property="twitter:site" content="@ian_fiskars"/>
+	<meta property="og:image" content="https://ianfisk.github.io/moms/images/bg.png"/>
+	<meta property="og:image:width" content="1366"/>
+	<meta property="og:image:height" content="768"/>
+	<meta property="og:type" content="website"/>
+	<meta property="faithlife:embed:uri" content="https://ianfisk.github.io/moms/index.html"/>
+	<meta property="faithlife:embed:aspectratio" content="1.778"/>
+	<link rel="icon" href="images/icon.png">
+
+	<title>Moms</title>
+	<link href="css/common.css" rel="stylesheet">
+	<link href="css/message.css" rel="stylesheet">
+	<script type="text/javascript" src="js/message.js" async></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/TweenLite.min.js" async></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.4/plugins/ScrollToPlugin.min.js" async></script>
+
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('sw.js', { scope: './' })
+				.then(function(reg) {
+					console.log('Service worker registration succeeded. Scope is ' + reg.scope);
+				});
+		}
+	</script>
+</head>
+<body>
+	<div class="main"></div>
+	<button type="button" id="downArrowButton" class="button-no-styling arrow" title="Next message">
+		<img class="down-arrow" src="images/down-arrow.png" alt="Down arrow">
+	</button>
+	<a id="indexLink" target="_blank" rel="noopener noreferrer" href="index.html" class="index-link">Create your own Mother's Day message!</a>
+</body>
+</html>

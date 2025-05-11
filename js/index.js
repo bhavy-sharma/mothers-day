@@ -9,10 +9,10 @@
 
 	function configureFormCompletionHandler () {
 		const button = document.getElementById('generate-message-button');
-		button.addEventListener('click', e => {
+		button.addEventListener('click', async e => {
 			e.preventDefault();
 
-			const data = getDataFromForm();
+			const data = await getDataFromForm();
 			const momMessageUrl = generateMessageUrl(data);
 			shortenLink(momMessageUrl).then(shortenedUrl => {
 				openLinkModal(shortenedUrl, data);
@@ -20,11 +20,30 @@
 		});
 	}
 
-	function getDataFromForm() {
-		return ['momName', 'birthdate', 'faveThing'].reduce((data, id) => {
-			data[id] = document.getElementById(id).value;
-			return data;
+	async function getDataFromForm() {
+		const data = ['momName', 'birthdate', 'faveThing'].reduce((obj, id) => {
+			obj[id] = document.getElementById(id).value;
+			return obj;
 		}, {});
+
+		const useCustomImage = document.querySelector('input[name="bgChoice"]:checked')?.value === 'custom';
+		if (useCustomImage) {
+			const fileInput = document.getElementById('bgImageInput');
+			if (fileInput.files.length > 0) {
+				data.bgImage = await toBase64(fileInput.files[0]);
+			}
+		}
+
+		return data;
+	}
+
+	function toBase64(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => resolve(reader.result);
+			reader.onerror = reject;
+			reader.readAsDataURL(file);
+		});
 	}
 
 	function generateMessageUrl(messageData) {
@@ -108,4 +127,4 @@
 	function fixedEncodeURIComponent(str) {
 		return encodeURIComponent(str).replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16));
 	}
-})()
+})();
